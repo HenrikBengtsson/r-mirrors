@@ -1,6 +1,7 @@
 # R Package Repositories - Local Mirrors
 
-by Henrik Bengtsson (2017-11-09 -- 2017-11-17)
+by Henrik Bengtsson
+
 
 ## Usage
 
