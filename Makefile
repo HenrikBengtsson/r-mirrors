@@ -6,8 +6,12 @@ BIOC_MIRROR ?= master.bioconductor.org
 BIOC_WWW ?= www.bioconductor.org
 
 ## Query Bioconductor for the current release version
-BIOC_VERSION := $(shell curl --silent https://${BIOC_WWW}/config.yaml | grep -F "release_version:" | sed -E 's/.*release_version:[ ]*"([0-9.]+)".*/\1/g')
-BIOC_VERSION_OLD := $(shell bc <<< "$(BIOC_VERSION)-0.1")
+BIOC_VERSION := $(shell curl --silent "https://${BIOC_WWW}/config.yaml" | grep -F "release_version:" | sed -E 's/.*release_version:[ ]*"([0-9.]+)".*/\1/g')
+#BIOC_VERSION := 3.10
+BIOC_VERSION_X := $(shell echo "$(BIOC_VERSION)" | sed -E 's/[.].*//')
+BIOC_VERSION_Y := $(shell echo "$(BIOC_VERSION)" | sed -E 's/[^.]+[.]//')
+BIOC_VERSION_Y_OLD := $(shell bc <<< "$(BIOC_VERSION_Y)-1")
+BIOC_VERSION_OLD := $(BIOC_VERSION_X).$(BIOC_VERSION_Y_OLD)
 
 OPTS = --dry-run
 OPTS =
@@ -23,6 +27,8 @@ debug:
 	@echo "BIOC_MIRROR=${BIOC_MIRROR}"
 	@echo "BIOC_WWW=${BIOC_WWW}"
 	@echo "BIOC_VERSION=$(BIOC_VERSION)"
+	@echo "BIOC_VERSION_X=$(BIOC_VERSION_X)"
+	@echo "BIOC_VERSION_Y=$(BIOC_VERSION_Y)"
 	@echo "BIOC_VERSION_OLD=$(BIOC_VERSION_OLD)"
 	du -c -h misc cran bioconductor
 #	curl --silent https://${BIOC_WWW}/config.yaml
@@ -68,10 +74,13 @@ sync-cran:
 
 ##	  -e "ssh" cran-rsync@${CRAN_MIRROR}: \
 
-sync-bioconductor:
+sync-bioconductor-packages:
 	mkdir -p bioconductor/$(BIOC_VERSION)
-	rm bioconductor/packages
+	rm -f bioconductor/packages
 	ln -fs $(BIOC_VERSION) bioconductor/packages
+
+sync-bioconductor: sync-bioconductor-packages
+	mkdir -p bioconductor/$(BIOC_VERSION)
 	rsync --verbose --human-readable \
 	  $(OPTS) \
 	  --times \
