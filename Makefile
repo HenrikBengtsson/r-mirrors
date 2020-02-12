@@ -70,6 +70,7 @@ sync-cran:
 
 sync-bioconductor:
 	mkdir -p bioconductor/$(BIOC_VERSION)
+	rm bioconductor/packages
 	ln -fs $(BIOC_VERSION) bioconductor/packages
 	rsync --verbose --human-readable \
 	  $(OPTS) \
