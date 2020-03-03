@@ -55,7 +55,7 @@ misc/icu55/data/icudt61l.zip:
 	cd "$(@D)"; \
 	curl -O https://www.ibspan.waw.pl/~gagolews/stringi/"$(@F)"
 
-sync-all: sync-cran sync-bioconductor
+sync-all: sync-cran sync-bioconductor sync-bioconductor-devel
 
 sync-cran:
 	mkdir -p cran/; \
@@ -101,6 +101,31 @@ sync-bioconductor: sync-bioconductor-packages
 	  --exclude '*' \
 	  ${BIOC_MIRROR}::$(BIOC_VERSION) \
 	  bioconductor/$(BIOC_VERSION)/
+
+sync-bioconductor-devel-packages:
+	mkdir -p bioconductor/$(BIOC_VERSION_DEVEL)
+#	rm -f bioconductor/packages
+#	ln -fs $(BIOC_VERSION_DEVEL) bioconductor/packages
+
+sync-bioconductor-devel: sync-bioconductor-devel-packages
+	mkdir -p bioconductor/$(BIOC_VERSION_DEVEL)
+	rsync --verbose --human-readable \
+	  $(OPTS) \
+	  --times \
+	  --recursive \
+	  --delete \
+	  --include 'src/' \
+	  --include 'src/contrib/' \
+          --include 'src/contrib/*.tar.gz' \
+          --include 'src/contrib/PACKAGES*' \
+	  --include 'bioc/' \
+	  --include 'data/' \
+	  --include 'data/annotation/' \
+	  --include 'data/experiment/' \
+	  --include 'workflows/' \
+	  --exclude '*' \
+	  ${BIOC_MIRROR}::$(BIOC_VERSION_DEVEL) \
+	  bioconductor/$(BIOC_VERSION_DEVEL)/
 
 list-cran:
 	mkdir -p cran/; \
