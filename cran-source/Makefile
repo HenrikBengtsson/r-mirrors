@@ -1,4 +1,4 @@
-SRC=/wynton/home/cbi/shared/mirrors/r-mirrors/cran/src/contrib
+SRC=/wynton/group/cbi/public/mirrors/r-mirrors/cran/src/contrib
 
 untar:
 	mkdir -p src/
