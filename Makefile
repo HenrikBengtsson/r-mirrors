@@ -43,6 +43,11 @@ summary:
 	@echo "BioCexp $(BIOC_VERSION): $(shell find bioconductor/$(BIOC_VERSION)/data/experiment -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION)/data/experiment | cut -f 1))"
 	@echo "BioCworkflows $(BIOC_VERSION): $(shell find bioconductor/$(BIOC_VERSION)/workflows -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION)/workflows | cut -f 1))"
 
+	@echo "BioCsoft $(BIOC_VERSION_DEVEL): $(shell find bioconductor/$(BIOC_VERSION_DEVEL)/bioc -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_DEVEL)/bioc | cut -f 1))"
+	@echo "BioCann $(BIOC_VERSION_DEVEL): $(shell find bioconductor/$(BIOC_VERSION_DEVEL)/data/annotation -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_DEVEL)/data/annotation | cut -f 1))"
+	@echo "BioCexp $(BIOC_VERSION_DEVEL): $(shell find bioconductor/$(BIOC_VERSION_DEVEL)/data/experiment -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_DEVEL)/data/experiment | cut -f 1))"
+	@echo "BioCworkflows $(BIOC_VERSION_DEVEL): $(shell find bioconductor/$(BIOC_VERSION_DEVEL)/workflows -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_DEVEL)/workflows | cut -f 1))"
+
 	@echo "BioCsoft $(BIOC_VERSION_OLD): $(shell find bioconductor/$(BIOC_VERSION_OLD)/bioc -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_OLD)/bioc | cut -f 1))"
 	@echo "BioCann $(BIOC_VERSION_OLD): $(shell find bioconductor/$(BIOC_VERSION_OLD)/data/annotation -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_OLD)/data/annotation | cut -f 1))"
 	@echo "BioCexp $(BIOC_VERSION_OLD): $(shell find bioconductor/$(BIOC_VERSION_OLD)/data/experiment -type f -name *.tar.gz | wc -l) packages ($(shell du -s -h bioconductor/$(BIOC_VERSION_OLD)/data/experiment | cut -f 1))"
